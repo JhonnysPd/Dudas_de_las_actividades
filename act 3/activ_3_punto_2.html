@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eemplo 6 Uso Objetos</title>
+    <style>
+        body{
+            background-color: #95f7be  ;
+            color: rgb(20, 20, 20);
+            font-size: 20px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <h1>GESTION DE ARTICULOS COMPRADOS</h1>
+        <hr>
+        <br>
+        <table border="3">
+            <tr>
+                <td>Nombre Artículo</td>
+                <td><input type="text" name="art" id="art"></td>
+            </tr>
+            <tr>
+                <td>
+                    Unidades de Medida
+                </td>
+                <td>
+                    <select name="und" id="und">
+                        <option value="0">Metros</option>
+                        <option value="1">Centimetros</option>
+                        <option value="2">Kilogramos</option>
+                        <option value="3">Gramos</option>
+                        <option value="4">Caja x 10</option>
+                        <option value="5">Unidades</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Precio de Compra</td>
+                <td><input type="text" name="precio" id="precio"></td> 
+            </tr>
+            <tr>
+                <td>Precio de venta</td>
+                <td><input type="text" name="pVenta" id="pVenta"></td> 
+            </tr>
+            <tr>
+                <td>Cantidad</td>
+                <td><input type="text" name="cant" id="cant"></td>
+            </tr>
+        </table>
+        <table border="3">
+            <tr><td><button onclick="registrarCompra()">REGISTRAR COMPRA</button></td></tr>
+        </table>
+        <br>
+        <h2>Listado de Artículos Comprados</h2>
+        <table border="3">
+            <th> Nombre Articulo </th><th> Unidad Medida </th><th>Cantidad </th><th> Precio Compra </th><th> Precio de venta </th><th>Total venta </th><th> Total Compra </th><th>Ganancia/producto</th>
+            <tbody id="cuerpo"></tbody>
+            
+        </table>
+    </center>
+    <script>
+        var articulo={
+            "art":null,
+            "und":null,
+            "precio":null,
+            "cant":null
+        }
+        var salida='';
+        function registrarCompra(){
+            articulo.art=document.getElementById('art').value;
+            articulo.und=document.getElementById('und').value;
+            articulo.precio=document.getElementById('precio').value;
+            articulo.cant=document.getElementById('cant').value;
+            ListadoArticulos(articulo);
+            limpiarCajas();
+        }
+        function ListadoArticulos(Oart){
+            salida+='<tr><td>'+Oart.art+'</td><td>'+obtUnidad(Oart.und)+'</td><td>'+Oart.cant+'</td><td>'+Oart.precio+'</td><td>'+ '</td><td>'+precVenta+ '</td><td>'+totalVenta+'</td><td>'+totCompra(Oart.cant,Oart.precio)+'</td><td>'+ gan/prod+'</td></tr>';
+            document.getElementById('cuerpo').innerHTML=salida;
+        }
+
+        function totCompra(cant,prec){
+            return cant*prec;
+        }
+
+        function limpiarCajas(){
+        document.getElementById('art').value='';
+        document.getElementById('precio').value='';
+        document.getElementById('cant').value='';
+        document.getElementById('nom').focus();
+        }
+
+        function obtUnidad(und){
+            und=parseInt(und);
+            switch(und){
+                case 0:return "Metros"; break;
+                case 1:return "Centimetros"; break;
+                case 2:return "Kilogramos"; break;
+                case 3:return "Gramos"; break;
+                case 4:return "Caja x 10"; break;
+                case 5:return "Unidades"; break;
+            }
+        }
+    </script>
+    
+</body>
+</html>
