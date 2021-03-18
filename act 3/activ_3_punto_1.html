@@ -78,10 +78,10 @@
             limpiarCajas();
         }
         
-        var notaFinal=nf(notas.nota1,notas.nota2,notas.nota3);
-
+        
         function ListadoNot(notas){
-            salida+='<tr><td>'+notas.nombre+'</td><td>'+ notas.apellido+'</td><td>'+notas.nota1+'</td><td>'+notas.nota2+'</td><td>'+ notas.nota3+'</td><td>'+ notaFinal +'</td><td>' + '</td><td><fontcolor="'+color(notafinal)+'">'+aprRepr(notaFinal)+ '</td></tr>';
+            var notaFinal=nf(notas.nota1,notas.nota2,notas.nota3);
+            salida+='<tr><td>'+notas.nombre+'</td><td>'+ notas.apellido+'</td><td>'+notas.nota1+'</td><td>'+notas.nota2+'</td><td>'+ notas.nota3+'</td><td>'+ notaFinal + '</td><td><font color="'+color(notaFinal)+'">'+aprRepr(notaFinal)+ '</font></td><td>'+ valoracion(notaFinal)+ '</td></tr>';
             document.getElementById('cuerpo').innerHTML=salida;
         }
         
@@ -100,18 +100,34 @@
         }
 
         function color(notaFinal){
-            if (notafinal >=3){
-                return "#BB0000";
+            if (notaFinal >=3){
+                return "#002EEB";
             }else {
-                return"#002EEB";
+                return"#BB0000";
             }
         }
 
         function aprRepr(notaFinal){
-            if (notafinal >=3){
+            if (notaFinal >=3){
                 return "APROBADO";
             }else {
                 return"REPROBADO";
+            }
+        }
+
+        function valoracion(notaFinal){
+            if (notaFinal >=0 && notaFinal <1){
+                return "Deficiente";
+            }else if(notaFinal >= 1.0 && notaFinal < 3.0){
+                return "Insuficiente";
+            }else if(notaFinal >= 3.5 && notaFinal < 4.0){
+                return "Aceptable";
+            }else if(notaFinal >= 4.0 && notaFinal < 4.5){
+                return "Sobresaliente";
+            }else if(notaFinal >= 4.5 && notaFinal <= 5){
+                return "Exelente";
+            }else {
+                return "Notas mal digitadas";
             }
         }
 
