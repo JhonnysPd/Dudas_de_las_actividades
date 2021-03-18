@@ -81,7 +81,7 @@
         
         function ListadoNot(notas){
             var notaFinal=nf(notas.nota1,notas.nota2,notas.nota3);
-            salida+='<tr><td>'+notas.nombre+'</td><td>'+ notas.apellido+'</td><td>'+notas.nota1+'</td><td>'+notas.nota2+'</td><td>'+ notas.nota3+'</td><td>'+ notaFinal + '</td><td><font color="'+color(notaFinal)+'">'+aprRepr(notaFinal)+ '</font></td><td>'+ valoracion(notaFinal)+ '</td></tr>';
+            salida+='<tr><td>'+notas.nombre+'</td><td>'+ notas.apellido+'</td><td>'+notas.nota1+'</td><td>'+notas.nota2+'</td><td>'+ notas.nota3+'</td><td>'+ notaFinal.toFixed(1) + '</td><td><font color="'+color(notaFinal)+'">'+aprRepr(notaFinal)+ '</font></td><td>'+ valoracion(notaFinal)+ '</td></tr>';
             document.getElementById('cuerpo').innerHTML=salida;
         }
         
@@ -108,7 +108,7 @@
         }
 
         function aprRepr(notaFinal){
-            if (notaFinal >=3){
+            if (notaFinal >=2.96){ // redondear 
                 return "APROBADO";
             }else {
                 return"REPROBADO";
@@ -118,13 +118,13 @@
         function valoracion(notaFinal){
             if (notaFinal >=0 && notaFinal <1){
                 return "Deficiente";
-            }else if(notaFinal >= 1.0 && notaFinal < 3.0){
+            }else if(notaFinal >= 1.0 && notaFinal <2.95){ 
                 return "Insuficiente";
-            }else if(notaFinal >= 3.5 && notaFinal < 4.0){
+            }else if(notaFinal >= 2.96 && notaFinal <= 4.0){  //redondeando devido a -> .tofixed()
                 return "Aceptable";
-            }else if(notaFinal >= 4.0 && notaFinal < 4.5){
+            }else if(notaFinal >= 4.1 && notaFinal <= 4.5){
                 return "Sobresaliente";
-            }else if(notaFinal >= 4.5 && notaFinal <= 5){
+            }else if(notaFinal >= 4.6 && notaFinal <= 5.0){
                 return "Exelente";
             }else {
                 return "Notas mal digitadas";
