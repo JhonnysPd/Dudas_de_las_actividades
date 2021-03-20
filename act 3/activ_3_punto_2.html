@@ -12,6 +12,23 @@
             font-size: 20px;
             font-family: Arial, Helvetica, sans-serif;
         }
+        table,td,th {
+            border: 1px solid rgba(0, 0, 0, .5);
+            margin: 0 auto;
+        }
+        table {
+            background: #D7F9F1;
+            border-collapse: collapse;
+            width: auto;
+        }
+        td, th {
+            padding: 10px;
+            color: #101010;
+            text-align: center;
+        }
+        th{
+            background: #009ddc;
+        }
     </style>
 </head>
 <body>
@@ -19,7 +36,7 @@
         <h1>GESTION DE ARTICULOS COMPRADOS</h1>
         <hr>
         <br>
-        <table border="3">
+        <table class="tab" >
             <tr>
                 <td>Nombre Artículo</td>
                 <td><input type="text" name="art" id="art"></td>
@@ -52,47 +69,62 @@
                 <td><input type="text" name="cant" id="cant"></td>
             </tr>
         </table>
-        <table border="3">
+        <table class="tab" >
             <tr><td><button onclick="registrarCompra()">REGISTRAR COMPRA</button></td></tr>
         </table>
         <br>
         <h2>Listado de Artículos Comprados</h2>
-        <table border="3">
-            <th> Nombre Articulo </th><th> Unidad Medida </th><th>Cantidad </th><th> Precio Compra </th><th> Precio de venta </th><th>Total venta </th><th> Total Compra </th><th>Ganancia/producto</th>
+        <table class="tab" >
+            <th> Nombre Articulo </th><th> Unidad Medida </th><th>Cantidad </th><th> Precio Compra </th><th> Precio de venta </th><th>Total venta </th><th>Ganancia/producto</th>
             <tbody id="cuerpo"></tbody>
             
         </table>
+        <br>
     </center>
+        <!-- <table>
+            <th>GRAN TOTAL</th>
+            <tbody id="granTotal"></tbody>
+        </table> -->
     <script>
         var articulo={
             "art":null,
             "und":null,
             "precio":null,
+            "preVen":null,
             "cant":null
         }
         var salida='';
+        var granTot='';
         function registrarCompra(){
             articulo.art=document.getElementById('art').value;
             articulo.und=document.getElementById('und').value;
-            articulo.precio=document.getElementById('precio').value;
+            articulo.preCom=document.getElementById('precio').value;
+            articulo.pVenta=document.getElementById('pVenta').value;
             articulo.cant=document.getElementById('cant').value;
             ListadoArticulos(articulo);
             limpiarCajas();
         }
         function ListadoArticulos(Oart){
-            salida+='<tr><td>'+Oart.art+'</td><td>'+obtUnidad(Oart.und)+'</td><td>'+Oart.cant+'</td><td>'+Oart.precio+'</td><td>'+ '</td><td>'+precVenta+ '</td><td>'+totalVenta+'</td><td>'+totCompra(Oart.cant,Oart.precio)+'</td><td>'+ gan/prod+'</td></tr>';
+            var totalVenta = toVe(Oart.cant,Oart.preCom)
+            salida+='<tr><td>'+Oart.art+'</td><td>'+obtUnidad(Oart.und)+'</td><td>'+Oart.cant+'</td><td>'+Oart.preCom+'</td><td>'+Oart.pVenta+ '</td><td>'+totalVenta+'</td><td>'+ ganProd(totalVenta,Oart.preCom)+'</td></tr>';
             document.getElementById('cuerpo').innerHTML=salida;
         }
 
-        function totCompra(cant,prec){
+        function toVe(cant,prec){
             return cant*prec;
         }
+        
+        function ganProd(totalVenta,precioCompra){
+            return totalVenta - precioCompra;
+        }
+
 
         function limpiarCajas(){
         document.getElementById('art').value='';
         document.getElementById('precio').value='';
         document.getElementById('cant').value='';
-        document.getElementById('nom').focus();
+        document.getElementById('nom').value='';
+        document.getElementById('pVenta').value="";
         }
 
         function obtUnidad(und){
