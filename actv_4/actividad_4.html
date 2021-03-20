@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejeemplo 1 ArrayNumeros</title>
+    <style>
+        body{
+            background-color: #EA73A1 ;
+            color: rgb(20, 20, 20);
+            font-size: 20px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        table,td,th {
+            border: 1px solid rgba(0, 0, 0, .5);
+            margin: 0 auto;
+        }
+        table {
+            background: #D7F9F1;
+            border-collapse: collapse;
+            width: auto;
+        }
+        td, th {
+            padding: 10px;
+            color: #101010;
+            text-align: center;
+        }
+        th{
+            background: #009ddc;
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <h1>EJEMPLO MANEJO ARRAY DE NUMEROS</h1>
+        <hr size="5" color="#C0FF87">
+        <br>
+        <table>
+            <th>Descripción</th><th>Valor</th>
+            <tbody>
+                <tr><td>Número</td><td><input type="text" name="num" id="num" placeholder="Digite un Número" autofocus></td></tr>
+            </tbody>
+        </table>
+        <table>
+            <tbody><tr><td><button onclick="agregar()">AGREGAR</button></td></tr></tbody>
+        </table>
+        <br>
+        <hr size="5" color="#C0FF87">
+        <br>
+        <h1>Lista de Números</h1>
+        <br>
+        <table>
+            <tbody id="cuerpo"></tbody>
+        </table>
+        <hr size="5" color="#C0FF87">
+        <br>
+        <h1>Resultado de Operaciones con los Datos de Array</h1>
+        <br>
+        <table border="5">
+            <th>Operación</th><th>Resultado</th>
+            <tbody id="otroCuerpo">
+
+            </tbody>
+
+        </table>
+    </center>
+    <script src="codigo.js"></script>
+</body>
+</html>
