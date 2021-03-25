@@ -8,7 +8,7 @@
     <style>
         body{
             background-color:#a2d2ff ;
-            color: #222222;
+            color: #2c2c2c;
             font-size: 20px;
             font-family: Arial, Helvetica, sans-serif;
         }
@@ -17,24 +17,24 @@
             margin: 10px auto;
         }
         table {
-            background: #D7F9F1;
+            background: #188FA7;
             border-collapse: collapse;
             width: auto;
         }
         td, th {
             padding: 10px;
-            color: #101010;
+            color: #ffffff;
             text-align: center;
         }
         th{
-            background: #ffafcc;
+            background: #8d6ba8;
         }
     </style>
 </head>
 <body>
     <center>
         <br>
-        <h1>GESTION DE ARTICULOS COMPRADOS</h1>
+        <h1>ARRAY DE OBJETOS DE ESTUDIANTE</h1>
         <br>
         <br>
         <table>
@@ -83,6 +83,8 @@
 
     <!-- -------------------------------------------------------------------------------------------------- -->
     <script>
+        var myArrayNotas =[];
+
         var notas={
             "nombre":null,
             "apellido":null,
@@ -90,8 +92,17 @@
             "nota2":null,
             "nota3":null
         }
-        var salida='';
-        var estad='';
+        var estad ='';
+        var salidaDos ='';
+        var esAprb ="";
+        var esRep ="";
+        var esDef ="";
+        var esIns ="";
+        var esBue ="";
+        var esAcep ="";
+        var esSobr ="";
+        var esExel ="";
+        var promedioCurso =promCurso();
         
         function registrarNotas(){
             notas.nombre=document.getElementById('nom').value;
@@ -99,14 +110,20 @@
             notas.nota1=parseFloat(document.getElementById('not1').value);
             notas.nota2=parseFloat(document.getElementById('not2').value);
             notas.nota3=parseFloat(document.getElementById('not3').value);
-            ListadoNot(notas);
+            let resultado = JSON.parse(JSON.stringify(notas));
+            myArrayNotas.push(resultado);
+            ListadoNot();
+            resultados();
             limpiarCajas();
         }
         
         
-        function ListadoNot(notas){
-            var notaFinal=nf(notas.nota1,notas.nota2,notas.nota3);
-            salida+='<tr><td>'+notas.nombre+'</td><td>'+ notas.apellido+'</td><td>'+notas.nota1+'</td><td>'+notas.nota2+'</td><td>'+ notas.nota3+'</td><td><font color="'+color(notaFinal)+'">'+ notaFinal.toFixed(2) + '</td><td> <backgroundColor="'+color(notaFinal)+'">'+aprRepr(notaFinal)+ '</font></td><td>'+ valoracion(notaFinal)+ '</td></tr>';
+        function ListadoNot(){
+            var salida="";
+            for(i in myArrayNotas){
+                var notaFinal=nf(myArrayNotas[i].nota1,myArrayNotas[i].nota2,myArrayNotas[i].nota3);
+                salida+='<tr><td>'+myArrayNotas[i].nombre+'</td><td>'+ myArrayNotas[i].apellido+'</td><td>'+myArrayNotas[i].nota1+'</td><td>'+myArrayNotas[i].nota2+'</td><td>'+ myArrayNotas[i].nota3+'</td><td><font color="'+color(notaFinal)+'">'+ notaFinal.toFixed(1) + '</td><td bgcolor="'+color(notaFinal)+'">'+aprRepr(notaFinal)+ '</td><td>'+ valoracion(notaFinal)+ '</td></tr>';
+            }
             document.getElementById('cuerpo').innerHTML=salida;
         }
         
@@ -128,36 +145,58 @@
             if (notaFinal >=3){
                 return "#002EEB";
             }else {
-                return"#BB0000";
+                return"#BA1F33";
             }
         }
 
         function aprRepr(notaFinal){
             if (notaFinal >=2.96){ // redondear 
+                esAprb++;
                 return "APROBADO";
             }else {
+                esRep++;
                 return"REPROBADO";
             }
         }
 
         function valoracion(notaFinal){
             if (notaFinal >=0 && notaFinal <1){
+                esDef++;
                 return "Deficiente";
             }else if(notaFinal >= 1.0 && notaFinal <2.95){ 
+                esIns++;
                 return "Insuficiente";
-            }else if(notaFinal >= 2.96 && notaFinal <= 4.0){  //redondeando devido a -> .tofixed()
-                return "Aceptable";
-            }else if(notaFinal >= 4.1 && notaFinal <= 4.5){
+            }else if(notaFinal >= 2.96 && notaFinal <= 3.5){  //redondeando devido a -> .tofixed()
+                esBue++;
+                return "Bueno";
+            }else if (notaFinal >=3.6 && notaFinal <= 4.0){
+                esAcep++;
+                return "aceptable";
+            }else if(notaFinal >= 4.0 && notaFinal <= 4.5){
+                esSobr++;
                 return "Sobresaliente";
             }else if(notaFinal >= 4.6 && notaFinal <= 5.0){
+                esExel++;
                 return "Exelente";
             }else {
                 return "Notas mal digitadas";
             }
         }
 // ---------------------   salida punto 2 -------------------
-        var salida_2='';
-        
+        function resultados(){
+        //         //  9 filas 
+            salidaDos= '<tr><td>'+ promedioCurso.toFixed(1) + '</td><td>'+ esAprb + '</td><td>'+ esRep + '</td><td>'+ esDef + '</td><td>'+ esIns + '</td><td>'+ esBue + '</td><td>'+ esAcep + '</td><td>'+ esSobr + '</td><td>'+ esExel + '</td></tr>';
+
+            document.getElementById('analisis').innerHTML=salidaDos;
+        }
+        function promCurso(){
+            var sum = 0;
+            for (i in myArrayNotas){
+                sum+= nf(myArrayNotas[i].nota1,myArrayNotas[i].nota2,myArrayNotas[i].nota3);
+            }
+            return (sum/(myArrayNotas.length));
+        }
+
 
 
         </script>
